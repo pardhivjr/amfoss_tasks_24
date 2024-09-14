@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Contents</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #e41313;
+        }
+        #cartContents {
+            margin-bottom: 20px;
+        }
+        .cart-item {
+            background-color: #049a8d;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #90c205;
+            border-radius: 5px;
+        }
+        #totalAmount {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #checkoutButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #checkoutButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Your Shopping Cart</h1>
+    <div id="cartContents"></div>
+    <div id="totalAmount"></div>
+    <button id="checkoutButton">Proceed to Checkout</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartContents = document.getElementById('cartContents');
+            let totalAmount = 0;
+
+            if (cart.length === 0) {
+                cartContents.innerHTML = '<p>Your cart is empty.</p>';
+            } else {
+                cart.forEach(product => {
+                    cartContents.innerHTML += `<div class="cart-item">${product.title} - $${product.price.toFixed(2)}</div>`;
+                    totalAmount += product.price;
+                });
+
+                document.getElementById('totalAmount').innerText = `Total: $${totalAmount.toFixed(2)}`;
+            }
+
+            document.getElementById('checkoutButton').addEventListener('click', () => {
+                alert('Proceeding to checkout!');
+            });
+        });
+    </script>
+
+</body>
+</html>
